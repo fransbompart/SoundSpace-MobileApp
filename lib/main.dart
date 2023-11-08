@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:soundspace_mobileapp/infrastructure/presentation/screens/landingPage/screens/landing_page.dart';
-
-import 'infrastructure/presentation/commons/config/app_theme.dart';
+import 'package:soundspace_mobileapp/homePage/config/background.dart';
+import 'package:soundspace_mobileapp/homePage/presentation/screens/home_page.dart';
+import 'homePage/config/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),
-      home: const LandingPage(),
+      home: const Scaffold(
+        body: GradientBackground(child: HomePage()),
+      ),
     );
   }
 }
