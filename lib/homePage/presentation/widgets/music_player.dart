@@ -6,18 +6,15 @@ class MusicPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          const BoxDecoration(color: Color.fromARGB(21, 0, 0, 0), boxShadow: [
-        BoxShadow(
-          color: Color.fromARGB(255, 30, 8, 58),
-          blurRadius: 8,
-        )
-      ]),
+      height: 80,
+      width: double.infinity,
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 24, 15, 35)),
       child: Column(
         children: [
           const LinearProgressIndicator(
             backgroundColor: Color.fromARGB(255, 33, 31, 34),
-            value: 0.5,
+            value:
+                0.2, //porcentaje que debe coincidir con el porcentaje que va de audio
             minHeight: 5,
           ),
           Padding(

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/presentation/widgets/music_album_card.dart';
-import 'package:flutter_application_4/presentation/widgets/music_albums_carousel.dart';
-import 'package:flutter_application_4/presentation/widgets/music_artist_card.dart';
-import 'package:flutter_application_4/presentation/widgets/music_artists_carousel.dart';
-import 'package:flutter_application_4/presentation/widgets/music_categories.dart';
-import 'package:flutter_application_4/presentation/widgets/music_category_card.dart';
-import 'package:flutter_application_4/presentation/widgets/music_track_item.dart';
-import 'package:flutter_application_4/presentation/widgets/promotional_banner.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_album_card.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_albums_carousel.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_artist_card.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_artists_carousel.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_categories.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_category_card.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_player.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_track_item.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/promotional_banner.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -83,10 +84,14 @@ class HomePage extends StatelessWidget {
                 MusicTrackItem(),
                 MusicTrackItem()
               ]),
+              const SizedBox(height: 100)
             ],
           ),
         ),
-        // const Positioned(bottom: 0, left: 0, right: 0, child: MusicPlayer())
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: MusicPlayer(key: key),
+        )
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/config/app_theme.dart';
-import 'package:flutter_application_4/config/background.dart';
-import 'package:flutter_application_4/presentation/screens/home_page.dart';
+import 'package:flutter_application_4/homePage/config/app_theme.dart';
+import 'package:flutter_application_4/homePage/config/background.dart';
+import 'package:flutter_application_4/homePage/presentation/screens/home_page.dart';
 
 void main() {
   runApp(const MyApp());
