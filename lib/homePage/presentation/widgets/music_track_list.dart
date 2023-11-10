@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/presentation/widgets/music_track_item.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_track_item.dart';
 
 class MusicTrackList extends StatelessWidget {
   final List<MusicTrackItem> tracks;

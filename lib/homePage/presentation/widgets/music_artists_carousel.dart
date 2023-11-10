@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/presentation/widgets/music_artist_card.dart';
+import 'package:flutter_application_4/homePage/presentation/widgets/music_artist_card.dart';
 
 class MusicArtistsCarousel extends StatelessWidget {
   final List<MusicArtistCard> artists;
