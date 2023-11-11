@@ -14,7 +14,6 @@ class _PromotionalBannersState extends State<PromotionalBanner> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Center(
       child: GestureDetector(
         onTap: () {},
