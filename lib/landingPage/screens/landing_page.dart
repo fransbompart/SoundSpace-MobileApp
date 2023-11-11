@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_4/homePage/config/app_theme.dart';
+import 'package:flutter_application_4/homePage/config/background.dart';
+import 'package:flutter_application_4/landingPage/widgets/landing_promo.dart';
+import 'package:flutter_application_4/landingPage/widgets/register_button.dart';
 
+//TEMPORAL
 void main() {
   runApp(const MyApp());
 }
@@ -10,68 +15,51 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Registro',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      title: 'Landing',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme().getTheme(),
+      home: const Scaffold(
+        body: GradientBackground(child: LandingPage()),
       ),
-      home: const LandingPage(),
     );
   }
 }
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({Key? key});
+  const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: <Color>[
-              Color.fromARGB(255, 52, 13, 131),
-              Color.fromARGB(255, 30, 8, 58),
-              Color.fromARGB(255, 24, 18, 31),
-              Color.fromARGB(255, 30, 8, 58),
-              Color.fromARGB(255, 57, 13, 145),
-            ],
-          ),
-        ),
+    return Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-                child: Image.asset(
-              'images/aqustico.jpg',
-            )),
+
+            // Imagen
+            const LandingPromo(promoPath: 'images/aqustico2.png'),
+
             const SizedBox(height: 20),
-            const Text(
-              'Te brindamos la experiencia de estar en Aqustico 7 días gratis',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-// Handle button press
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.lightBlue,
-                foregroundColor: Colors.white,
-              ),
-              child: const Text(
-                'Regístrate aquí',
-                style: TextStyle(fontSize: 18),
+
+            // Texto
+            const Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
+              child: Text(
+                "Te brindamos la experiencia de estar en Aquistco 7 días gratis.",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
+                       
             const SizedBox(height: 20),
+
+            // Botón de registro
+            const RegisterButtom(),
+
+            const SizedBox(height: 20),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -81,7 +69,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-// Handle login link press
+                    // Handle login link press
                   },
                   child: const Text(
                     'Inicia sesión',
@@ -93,7 +81,11 @@ class LandingPage extends StatelessWidget {
                 ),
               ],
             ),
+
+
             const SizedBox(height: 10),
+
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -103,7 +95,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-// Handle guest link press
+                  // Handle guest link press
                   },
                   child: const Text(
                     'Invitado',
@@ -115,16 +107,18 @@ class LandingPage extends StatelessWidget {
                 ),
               ],
             ),
+
+
             const SizedBox(height: 20),
-            Container(
-// Bottom Picture Placeholder
-              width: 200,
-              height: 200,
-// Placeholder image or custom widget can be added here
-            ),
+
+            //Image 
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Image.asset('images/logo_conectium.png')
+            )
+           
           ],
-        ),
-      ),
+        )
     );
   }
 }
