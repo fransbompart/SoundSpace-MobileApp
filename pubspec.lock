@@ -163,6 +163,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  overlapped_carousel:
+    dependency: "direct main"
+    description:
+      name: overlapped_carousel
+      sha256: e9c83f2e6fca50391065aa07e397d56391f62846167c8d262fd63d979fbf7878
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path:
     dependency: transitive
     description:

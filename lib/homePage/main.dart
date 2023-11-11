@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_4/homePage/config/app_theme.dart';
 import 'package:flutter_application_4/homePage/config/background.dart';
+import 'package:flutter_application_4/artist/presentation/screens/artist.dart';
 import 'package:flutter_application_4/homePage/presentation/screens/home_page.dart';
 
 void main() {
@@ -16,8 +17,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),
-      home: const Scaffold(
-        body: GradientBackground(child: HomePage()),
+      home: Scaffold(
+        body: GradientBackground(
+            child: Artist(
+          currentHeight: MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top,
+          currentWidth: MediaQuery.of(context).size.width,
+        )),
       ),
     );
   }
