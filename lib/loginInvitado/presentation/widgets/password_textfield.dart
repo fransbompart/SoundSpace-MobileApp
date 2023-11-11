@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class PasswordTextField extends StatefulWidget{
   const PasswordTextField({super.key});
   @override
@@ -54,7 +54,9 @@ class PasswordTextFieldState extends State<PasswordTextField>{
                       ),
                     ),
                     cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white),
+                    style: GoogleFonts.poppins().copyWith(
+                            color: Colors.white,
+                            ),
                   ),
                 ),
               );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
@@ -48,8 +48,10 @@ class MyTextField extends StatelessWidget {
             prefixIcon: icon2 != null ? Icon(icon2, color: Colors.white) : null,
             ),
             cursorColor: Colors.white,
-            style: const TextStyle(color: Colors.white),
-
+            style: GoogleFonts.poppins().copyWith(
+          color: Colors.white,
+          fontSize: 15,
+            ),
       ),
     );
   }

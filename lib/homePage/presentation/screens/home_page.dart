@@ -14,86 +14,104 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              AppBar(
-                backgroundColor: Colors.transparent,
-                actions: const [
-                  Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 10),
-                  Icon(
-                    Icons.more_vert,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 10),
-                ],
-              ),
-              const PromotionalBanner(
-                //requestPromotion
-                imgPath:
-                    'https://aqustico.com/wp-content/uploads/2023/08/Banners-web_Mesa-de-trabajo-1-1.png',
-              ),
-              const _Collapse(name: 'Playlist', child: [
-                //requestCategories
-                MusicCategories(
-                  categories: [
-                    MusicCategoryCard(
-                        name: 'Tradicional venezolana',
-                        color: Colors.deepPurple),
-                    MusicCategoryCard(name: 'Alternativo', color: Colors.pink),
-                    MusicCategoryCard(name: 'Pop Latino', color: Colors.amber),
-                    MusicCategoryCard(name: 'Urbana', color: Colors.indigo)
-                  ],
-                )
-              ]),
-              const _Collapse(name: 'Aqustico Experience', child: [
-                MusicAlbumsCarousel(albums: [
-                  MusicAlbumCard(),
-                  MusicAlbumCard(),
-                  MusicAlbumCard(),
-                  MusicAlbumCard(),
-                ])
-              ]),
-              const _Collapse(name: 'Artistas Trending', child: [
-                MusicArtistsCarousel(
-                  artists: [
-                    //requestAuthors
-                    MusicArtistCard(),
-                    MusicArtistCard(),
-                    MusicArtistCard(),
-                  ],
-                )
-              ]),
-              const Divider(
-                color: Color.fromARGB(18, 142, 139, 139),
-                height: 40,
-                thickness: 2,
-                indent: 20,
-                endIndent: 20,
-              ),
-              const _Collapse(name: 'Tracklist', child: [
-                //requestTrackLists
-                MusicTrackItem(),
-                MusicTrackItem(),
-                MusicTrackItem(),
-                MusicTrackItem()
-              ]),
-              const SizedBox(height: 100)
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: <Color>[
+              Color.fromARGB(255, 52, 13, 131),
+              Color.fromARGB(255, 30, 8, 58),
+              Color.fromARGB(255, 24, 18, 31),
+              Color.fromARGB(255, 30, 8, 58),
+              Color.fromARGB(255, 57, 13, 145),
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: MusicPlayer(key: key),
-        )
-      ],
+        child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    AppBar(
+                      backgroundColor: Colors.transparent,
+                      actions: const [
+                        Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 10),
+                        Icon(
+                          Icons.more_vert,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 10),
+                      ],
+                    ),
+                    const PromotionalBanner(
+                      //requestPromotion
+                      imgPath:
+                          'https://aqustico.com/wp-content/uploads/2023/08/Banners-web_Mesa-de-trabajo-1-1.png',
+                    ),
+                    const _Collapse(name: 'Playlist', child: [
+                      //requestCategories
+                      MusicCategories(
+                        categories: [
+                          MusicCategoryCard(
+                              name: 'Tradicional venezolana',
+                              color: Colors.deepPurple),
+                          MusicCategoryCard(name: 'Alternativo', color: Colors.pink),
+                          MusicCategoryCard(name: 'Pop Latino', color: Colors.amber),
+                          MusicCategoryCard(name: 'Urbana', color: Colors.indigo)
+                        ],
+                      )
+                    ]),
+                    const _Collapse(name: 'Aqustico Experience', child: [
+                      MusicAlbumsCarousel(albums: [
+                        MusicAlbumCard(),
+                        MusicAlbumCard(),
+                        MusicAlbumCard(),
+                        MusicAlbumCard(),
+                      ])
+                    ]),
+                    const _Collapse(name: 'Artistas Trending', child: [
+                      MusicArtistsCarousel(
+                        artists: [
+                          //requestAuthors
+                          MusicArtistCard(),
+                          MusicArtistCard(),
+                          MusicArtistCard(),
+                        ],
+                      )
+                    ]),
+                    const Divider(
+                      color: Color.fromARGB(18, 142, 139, 139),
+                      height: 40,
+                      thickness: 2,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                    const _Collapse(name: 'Tracklist', child: [
+                      //requestTrackLists
+                      MusicTrackItem(),
+                      MusicTrackItem(),
+                      MusicTrackItem(),
+                      MusicTrackItem()
+                    ]),
+                    const SizedBox(height: 100)
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: MusicPlayer(key: key),
+              )
+            ],
+          ),
+      ),
     );
+    
   }
 }
 

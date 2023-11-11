@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 class BaseTextField extends StatefulWidget{
   const BaseTextField({super.key});
   @override
@@ -45,7 +45,9 @@ class BaseTextFieldState extends State<BaseTextField>{
                     suffixIcon: const Icon(Icons.info_outline, color: Colors.white),
                   ),
                   cursorColor: Colors.white,
-                  style: const TextStyle(color: Colors.white),
+                  style: GoogleFonts.poppins().copyWith(
+          color: Colors.white,
+            ),
                           
                   ),
                 ),
