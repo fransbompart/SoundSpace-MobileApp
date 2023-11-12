@@ -4,6 +4,7 @@ import 'package:flutter_application_4/homePage/config/background.dart';
 import 'package:flutter_application_4/homePage/presentation/screens/home_page.dart';
 import 'package:flutter_application_4/landingPage/Screens/landing_page.dart';
 import 'package:flutter_application_4/loginInvitado/presentation/screens/login_page.dart';
+import 'package:flutter_application_4/loginPage/presentation/Screens/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme().getTheme(),
       routes: {
         '/homepage': (context) => const HomePage(),
-        '/login': (context) => const LoginState(),
+        '/login': (context) => const LoginApp(),
       },
       home: const LandingPage(),
       

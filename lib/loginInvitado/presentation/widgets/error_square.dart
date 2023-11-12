@@ -17,35 +17,38 @@ class ErrorSquareState extends State<ErrorSquare> {
   Widget build(BuildContext context) {
     return Visibility(
                   visible: invalidData,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                    height: 70.0,
-                    width: 428.0,
-                    color: Colors.transparent,
-                    child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width:2.0,),
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(15.0))),
-                      
-                      child:  const Align(
-                        alignment: Alignment.centerLeft,
-                        child:  Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.error, color: Colors.red,),
-                              Text("  Datos inválidos, intenta nuevamente", 
-                                style: TextStyle(color: Colors.black, fontSize: 16),
-                                textAlign: TextAlign.left,),
-                            ],
-                          )
-                        ),
-                      )),
-                    ),
-                    ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: invalidData ? 20 : 0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                      height: 70.0,
+                      width: 428.0,
+                      color: Colors.transparent,
+                      child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.red, width:2.0,),
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(Radius.circular(15.0))),
+                        
+                        child:  const Align(
+                          alignment: Alignment.centerLeft,
+                          child:  Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.error, color: Colors.red,),
+                                Text("  Datos inválidos, intenta nuevamente", 
+                                  style: TextStyle(color: Colors.black, fontSize: 16),
+                                  textAlign: TextAlign.left,),
+                              ],
+                            )
+                          ),
+                        )),
+                      ),
+                      ),
+                  ),
                     );
 
   }

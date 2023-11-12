@@ -25,20 +25,20 @@ class BaseTextFieldState extends State<BaseTextField>{
                   decoration: InputDecoration(
                     enabledBorder: valueEmpty2
                       ? OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(16.0),
                         borderSide: const BorderSide(color: Colors.red),
                         )
                       : OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(16.0),
                         borderSide: const BorderSide(color: Color.fromARGB(0, 255, 255, 255)),
                         ),          
                     focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(16.0),
                     borderSide: const BorderSide(color: Color.fromARGB(0, 189, 189, 189)),
                   ),
                     fillColor: const Color.fromARGB(69, 238, 238, 238),
                     filled: true,
-                    hintText: valueEmpty2 ? "Ingresa tu número de identificación" : "",
+                    hintText: valueEmpty2 ? "Ingresa tu número de teléfono" : "Ej. 584241232323 o 4121232323",
                     hintStyle: TextStyle(
                       color: valueEmpty2 ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(255, 255, 255, 255),
                     ),

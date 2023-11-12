@@ -17,14 +17,20 @@ class _RegisterButtomState extends State<RegisterButtom> {
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(9.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
         backgroundColor: const Color.fromARGB(255, 1, 229, 240),
         foregroundColor: Colors.black,
+        padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 18),
       ),
       child: const Text(
-        'Regístrate aquí',
-        style: TextStyle(fontSize: 18),
+        'REGÍSTRATE AQUÍ',
+        style: TextStyle(
+          color: Colors.black,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w600,
+              fontSize: 24,
+          ),
       ),
     );
   }
