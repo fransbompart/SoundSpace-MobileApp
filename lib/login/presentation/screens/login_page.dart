@@ -1,136 +1,153 @@
 import 'package:flutter/material.dart';
 
 class LoginApp extends StatefulWidget {
-  const LoginApp({super.key});
+  const LoginApp({Key? key}) : super(key: key);
 
   @override
   State<LoginApp> createState() => _LoginPage();
 }
 
 class _LoginPage extends State<LoginApp> {
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-
-  @override
-  void initState() {
-    super.initState();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Inicio de Sesión',
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Inicio de Sesión',
+              style: TextStyle(
+                fontSize: 26,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Container(
+              width: 300,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.withOpacity(0.5),
+              ),
+              child: const TextField(
                 style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
                   color: Colors.white,
+                  fontSize: 16,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Ingrese su número de teléfono',
+                  hintStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 ),
               ),
-              const SizedBox(height: 24.0),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(8.0),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              width: 300,
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Acción al presionar el botón
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Colors.blue, // Hace que el botón sea transparente
+                  elevation: 0, // Elimina la sombra del botón
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextField(
-                    controller: _emailController,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: 'Correo electrónico',
-                      hintStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.5)),
-                      border: InputBorder.none,
-                    ),
+                child: const Text(
+                  'Iniciar sesión',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextField(
-                    controller: _passwordController,
-                    style: const TextStyle(color: Colors.white),
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: 'Contraseña',
-                      hintStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.5)),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              '¿No tienes número de teléfono asociado?',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 16.0),
-              FractionallySizedBox(
-                widthFactor: 1,
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextButton(
-                    onPressed: () {
-                      // Lógica para olvidar la contraseña...
-                    },
-                    child: const Text(
-                      '¿Olvidaste tu contraseña?',
-                      style: TextStyle(color: Colors.white),
+            ),
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                Container(
+                  width: 300,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.grey.withOpacity(0.2),
+                        Colors.grey.withOpacity(0.5),
+                        Colors.grey.withOpacity(0.2),
+                      ],
                     ),
                   ),
+                  child: ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Image.asset('images/movistar.png', width: 200),
+                      label: const Text(''),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors
+                            .transparent, // Establece el color de fondo como transparente,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      )),
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    //String email = _emailController.text;
-                    //String password = _passwordController.text;
-                    // Lógica de inicio de sesión...
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(height: 10),
+                Container(
+                  width: 300,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.grey.withOpacity(0.2),
+                        Colors.grey.withOpacity(0.5),
+                        Colors.grey.withOpacity(0.2),
+                      ],
                     ),
                   ),
-                  child: const Text(
-                    'Iniciar Sesión',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    ),
-                  ),
+                  child: ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Image.asset('images/digitel.png', width: 250),
+                      label: const Text(''),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors
+                            .transparent, // Establece el color de fondo como transparente,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      )),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
