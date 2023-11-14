@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class PromotionalBanner extends StatefulWidget {
   final String imgPath;
-  //final String redirectUrl;
 
   const PromotionalBanner({super.key, required this.imgPath});
 
@@ -14,10 +13,8 @@ class _PromotionalBannersState extends State<PromotionalBanner> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Center(
       child: GestureDetector(
-        onTap: () {},
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
