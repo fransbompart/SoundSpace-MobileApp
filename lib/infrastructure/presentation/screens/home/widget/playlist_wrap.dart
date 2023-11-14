@@ -58,7 +58,7 @@ class _PlaylistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
-      child: SizedBox(
+      child: Container(
           width: size.width * 0.45,
           height: size.width * 0.26,
           child: ClipRRect(

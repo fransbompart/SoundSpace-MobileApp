@@ -52,12 +52,20 @@ class _AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool imageMethod = false;
+
+    if (album.id == 'id') imageMethod = true;
+
     return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
-      child: Image.network(
-        album.imageURL,
-        fit: BoxFit.cover,
-      ),
-    );
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        child: imageMethod
+            ? Image(
+                image: AssetImage(album.imageURL),
+                fit: BoxFit.cover,
+              )
+            : Image.network(
+                album.imageURL,
+                fit: BoxFit.cover,
+              ));
   }
 }

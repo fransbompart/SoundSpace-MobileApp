@@ -16,17 +16,13 @@ class SongProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+//Song song
   Future<void> updateCurrentSong(String id) async {
     currentSong = await repository.getSong(id);
     notifyListeners();
   }
 
-  // Future<void> updateSongsByAlbum(String id) async {
-  //   songsByAlbum = await repository.getSongsByAlbum(id);
-  //   notifyListeners();
-  // }
-
-  Future<void> updateSongsByArtist(String id) async {
+  Future<void> getSongsByArtist(String id) async {
     songsByArtist = await repository.getSongsByArtist(id);
     notifyListeners();
   }

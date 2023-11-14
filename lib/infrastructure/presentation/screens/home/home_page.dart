@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/commons/widgets/albums_carousel.dart';
 
@@ -49,6 +50,7 @@ class Home extends StatelessWidget {
     final albumsProvider = context.watch<AlbumProvider>();
     final artistsProvider = context.watch<ArtistProvider>();
     final songsProvider = context.watch<SongProvider>();
+    final playerProvider = context.watch<AudioPlayerProvider>();
 
     return Stack(
       children: [
@@ -193,9 +195,14 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        const Visibility(
-          visible: true /*playerProvider.player.playing*/,
-          child: Align(
+        Visibility(
+          visible: ((playerProvider.player.processingState ==
+                      ProcessingState.idle) ||
+                  (playerProvider.player.processingState ==
+                      ProcessingState.completed))
+              ? false
+              : true,
+          child: const Align(
             alignment: Alignment.bottomLeft,
             child: Player(),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:soundspace_mobileapp/domain/album.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/providers/album_provider.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/artist/artist_page.dart';
 import '../../../../../domain/artist.dart';
 import '../../../providers/artist_provider.dart';
 import '../../../providers/song_provider.dart';
@@ -39,18 +40,16 @@ class _ArtistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final artistProvider = context.watch<ArtistProvider>();
-    // final songProvider = context.watch<SongProvider>();
-    // final albumProvider = context.watch<AlbumProvider>();
-
     final size = MediaQuery.of(context).size;
     return Column(children: [
       GestureDetector(
         onTap: () async {
-          // artistProvider.updateCurrentArtist(artist);
-          // await albumProvider.updateAlbumsByArtist(artist.id);
-          // await songProvider.updateSongsByArtist(artist.id);
-          // Navigator.pushNamed(, );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ArtistPage(
+                        artist: artist,
+                      )));
         },
         child: Material(
           elevation: 5.0,
@@ -64,11 +63,10 @@ class _ArtistCard extends StatelessWidget {
               artist.imageURL,
               fit: BoxFit.cover,
             )),
-            // child: Image.network(artist.imageURL, fit: BoxFit.cover),
           ),
         ),
       ),
-      Text(artist.name) //texto (model)
+      Text(artist.name)
     ]);
   }
 }

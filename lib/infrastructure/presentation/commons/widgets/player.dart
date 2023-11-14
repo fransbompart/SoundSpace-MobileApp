@@ -16,7 +16,7 @@ class Player extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 80,
+          height: 86,
           width: double.infinity,
           child: Column(
             children: [
@@ -56,7 +56,7 @@ class Player extends StatelessWidget {
           ),
         ),
         Positioned(
-            bottom: 47,
+            bottom: 50,
             child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: const PlayerProgressBar()))
@@ -101,13 +101,7 @@ class _PlayerButtom extends StatelessWidget {
         color: color,
       ),
       onPressed: () async {
-        if (playerProvider.player.processingState == ProcessingState.idle) {
-          playerProvider.setPath(
-              'https://firebasestorage.googleapis.com/v0/b/soundcloud-imagenes.appspot.com/o/Cancion%2Fb43075de-7c9a-4f04-940b-38181fd98609.mp3?alt=media&token=fc2277a4-e30d-454b-af29-ff2e62342448');
-          playerProvider.play();
-        } else {
-          playerProvider.playOrPause();
-        }
+        playerProvider.playOrPause();
       },
     );
   }
