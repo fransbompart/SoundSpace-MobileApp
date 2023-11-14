@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/loginPage/login_page.dart';
 import 'package:soundspace_mobileapp/landingPage/Widgets/landing_promo.dart';
 import 'package:soundspace_mobileapp/landingPage/Widgets/register_button.dart';
 
@@ -65,7 +66,10 @@ class LandingPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginApp()),
+                        );
                     },
                     child: const Text(
                       'Inicia sesión',

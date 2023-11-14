@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/screens/loginPage/login_page.dart';
+import 'package:soundspace_mobileapp/landingPage/Screens/landing_page.dart';
 
 import 'infrastructure/presentation/commons/config/app_theme.dart';
 import 'infrastructure/presentation/screens/home/home_page.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),
-      home: const LoginApp(),
+      home: const LandingPage(),
     );
   }
 }

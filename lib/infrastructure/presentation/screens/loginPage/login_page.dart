@@ -20,6 +20,7 @@ class _LoginPage extends State<LoginApp> {
   //Keys para el acceso a stateful widgets
   GlobalKey<BaseTextFieldState> usernametextFieldKey = GlobalKey<BaseTextFieldState>();
   GlobalKey<ErrorSquareState> errorSquareKey = GlobalKey<ErrorSquareState>();
+  final ApiRepository repository = ApiRepository();
 
 //método validar datos usuario
   void signUserIn2(){
@@ -47,7 +48,7 @@ class _LoginPage extends State<LoginApp> {
 }
 
 void signUserIn() async {
-  print('ALOOOOOOOOOOOOOOOOOOO');
+  print('Iniciando sesion...');
   // Obtener el número de teléfono desde el TextField
   String phoneNumber = usernametextFieldKey.currentState?.usernameController.text ?? '';
 
@@ -59,15 +60,17 @@ void signUserIn() async {
     print('INICIO DE SESION EXITOSO. ID de usuario: $userId');
 
     // Navigecacion a la HomePage
-     //Navigator.push(
-       //context,
-       //MaterialPageRoute(builder: (context) => HomePage()),
-     //);
+     Navigator.push(
+       context,
+       MaterialPageRoute(builder: (context) => HomePage(repository: repository)),
+     );
   } else {
     // Si userId es null, el inicio de sesión falló
     // Mostrar mensaje de error 
     print('Fallo en el inicio de sesión');
-    //errorSquareKey.currentState?.invalidData=true;
+    setState(() {
+        errorSquareKey.currentState!.invalidData=true;
+      });
   }
 }
 
