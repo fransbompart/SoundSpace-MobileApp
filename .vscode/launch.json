@@ -8,7 +8,7 @@
             "name": "SoundSpace-MobileApp",
             "request": "launch",
             "type": "dart",
-            "program": "lib\\homePage\\main.dart"
+            "program": "lib/main.dart"
         },
         {
             "name": "SoundSpace-MobileApp (profile mode)",

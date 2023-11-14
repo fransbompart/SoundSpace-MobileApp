@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/loginInvitado/presentation/widgets/error_square.dart';
-import 'package:flutter_application_4/loginInvitado/presentation/widgets/my_button.dart';
-import 'package:flutter_application_4/loginInvitado/presentation/widgets/textfield.dart';
-import 'package:flutter_application_4/loginPage/presentation/Widgets/operators_button.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/home/home_page.dart';
+import 'package:soundspace_mobileapp/infrastructure/repositories/api_repository.dart';
+import 'Widgets/textfield.dart';
+import 'Widgets/error_square.dart';
+import 'Widgets/my_button.dart';
+import 'Widgets/operators_button.dart';
 
 class LoginApp extends StatefulWidget {
   const LoginApp({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class _LoginPage extends State<LoginApp> {
   GlobalKey<ErrorSquareState> errorSquareKey = GlobalKey<ErrorSquareState>();
 
 //método validar datos usuario
-  void signUserIn(){
+  void signUserIn2(){
   if (usernametextFieldKey.currentState!.usernameController.text!=user ){
       setState(() {
         errorSquareKey.currentState!.invalidData=true;
@@ -41,6 +43,31 @@ class _LoginPage extends State<LoginApp> {
     setState(() {
         usernametextFieldKey.currentState!.valueEmpty2 = false;
       });
+  }
+}
+
+void signUserIn() async {
+  print('ALOOOOOOOOOOOOOOOOOOO');
+  // Obtener el número de teléfono desde el TextField
+  String phoneNumber = usernametextFieldKey.currentState?.usernameController.text ?? '';
+
+  // Realizar la solicitud de inicio de sesión
+  String? userId = await ApiRepository().logInUser(phoneNumber);
+
+  if (userId != null) {
+    // Inicio de sesión exitoso, realizar la navegación o acciones correspondientes
+    print('INICIO DE SESION EXITOSO. ID de usuario: $userId');
+
+    // Navigecacion a la HomePage
+     //Navigator.push(
+       //context,
+       //MaterialPageRoute(builder: (context) => HomePage()),
+     //);
+  } else {
+    // Si userId es null, el inicio de sesión falló
+    // Mostrar mensaje de error 
+    print('Fallo en el inicio de sesión');
+    //errorSquareKey.currentState?.invalidData=true;
   }
 }
 

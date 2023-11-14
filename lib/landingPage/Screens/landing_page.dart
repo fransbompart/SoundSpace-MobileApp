@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_4/landingPage/Widgets/landing_promo.dart';
-import 'package:flutter_application_4/landingPage/Widgets/register_button.dart';
+import 'package:soundspace_mobileapp/landingPage/Widgets/landing_promo.dart';
+import 'package:soundspace_mobileapp/landingPage/Widgets/register_button.dart';
 
 //TEMPORAL
 

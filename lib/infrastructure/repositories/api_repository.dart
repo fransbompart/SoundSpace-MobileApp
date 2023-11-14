@@ -202,19 +202,23 @@ class ApiRepository {
   }
 
   Future<String?> logInUser(String number) async {
+    print('entro');
+    print (number);
     try {
       final response = await dio.post(
           "https://soundspace-api-production.up.railway.app/api/auth/login",
           data: {
             'number': number,
           });
-
+      print(number);
       if (response.statusCode == 200) {
+        print('c supone q exito');
         return response.data['data']['codigo_usuario'];
       }
     } catch (e) {
       print('$e');
+      print('c supone q mal');
+      return null;
     }
-    return null;
   }
 }
