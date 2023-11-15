@@ -6,7 +6,6 @@ import '../../domain/song.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 class ApiRepository {
   final Dio dio = Dio();
 
@@ -205,24 +204,24 @@ class ApiRepository {
   }
 
   Future<String?> logInUser(String number) async {
-    print(number);
-  try {
-    final response = await http.post(
-      Uri.parse('https://soundspace-api-production.up.railway.app/api/auth/login'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'number': number,
-      }),
-    );
-    if (jsonDecode(response.body)['statusCode'] == 200) {
-      // Si el servidor devuelve una respuesta OK, extraemos el código de usuario.
-      return jsonDecode(response.body)['data']['codigo_usuario'];
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'https://soundspace-api-production.up.railway.app/api/auth/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'number': number,
+        }),
+      );
+      if (jsonDecode(response.body)['statusCode'] == 200) {
+        // Si el servidor devuelve una respuesta OK, extraemos el código de usuario.
+        return jsonDecode(response.body)['data']['codigo_usuario'];
+      }
+    } catch (e) {
+      print('$e');
     }
-  } catch (e) {
-    print('$e');
     return null;
   }
-}
 }

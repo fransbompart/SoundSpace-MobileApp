@@ -46,7 +46,7 @@ class _TracklistItem extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
-              child: Container(
+              child: SizedBox(
                 //imagen
                 width: size.width * 0.2,
                 height: size.width * 0.2,

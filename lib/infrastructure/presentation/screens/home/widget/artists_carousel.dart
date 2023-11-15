@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:soundspace_mobileapp/domain/album.dart';
-import 'package:soundspace_mobileapp/infrastructure/presentation/providers/album_provider.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/screens/artist/artist_page.dart';
 import '../../../../../domain/artist.dart';
-import '../../../providers/artist_provider.dart';
-import '../../../providers/song_provider.dart';
 
 class ArtistsCarousel extends StatelessWidget {
   final List<Artist> artists;

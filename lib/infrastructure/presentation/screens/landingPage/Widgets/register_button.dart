@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RegisterButtom extends StatefulWidget{
-
+class RegisterButtom extends StatefulWidget {
   const RegisterButtom({super.key});
 
   @override
@@ -10,27 +9,27 @@ class RegisterButtom extends StatefulWidget{
 
 class _RegisterButtomState extends State<RegisterButtom> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         // Handle button press
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
         backgroundColor: const Color.fromARGB(255, 1, 229, 240),
         foregroundColor: Colors.black,
-        padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 18),
+        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 18),
       ),
       child: const Text(
         'REGÍSTRATE AQUÍ',
         style: TextStyle(
           color: Colors.black,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w600,
-              fontSize: 24,
-          ),
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w600,
+          fontSize: 20,
+        ),
       ),
     );
   }
