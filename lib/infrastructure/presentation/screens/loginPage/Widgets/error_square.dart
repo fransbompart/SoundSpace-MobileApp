@@ -21,7 +21,7 @@ class ErrorSquareState extends State<ErrorSquare> {
           alignment: Alignment.center,
           child: Container(
             height: 70.0,
-            width: MediaQuery.of(context).size.width * 0.95,
+            width: MediaQuery.of(context).size.width * 0.90,
             color: Colors.transparent,
             child: Container(
               decoration: BoxDecoration(
