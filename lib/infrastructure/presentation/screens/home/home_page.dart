@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/commons/widgets/albums_carousel.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/searchPage/screens/search_bar.dart';
 
 import '../../../repositories/api_repository.dart';
 import '../../commons/widgets/background.dart';
@@ -58,15 +59,23 @@ class Home extends StatelessWidget {
           child: Column(
             children: [
               AppBar(
-                backgroundColor: Colors.transparent,
-                actions: const [
-                  Icon(Icons.search,
-                      color: Colors.white), //navigate to searchPage
-                  SizedBox(width: 10),
-                  Icon(Icons.more_vert, color: Colors.white),
-                  SizedBox(width: 10),
-                ],
-              ),
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.white),
+            onPressed: () {
+              // Navegar a la página de búsqueda cuando se hace clic en el ícono de búsqueda
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchFrame()),
+              );
+            },
+          ),
+          const SizedBox(width: 10),
+          const Icon(Icons.more_vert, color: Colors.white),
+          const SizedBox(width: 10),
+        ],
+      ),
               //
               (artistsProvider.bannerImgUrl == null)
                   ? FutureBuilder(

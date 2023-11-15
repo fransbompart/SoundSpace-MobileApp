@@ -49,8 +49,7 @@ class _LoginPage extends State<LoginApp> {
   void signUserIn() async {
     print('Iniciando sesion...');
     // Obtener el número de teléfono desde el TextField
-    String phoneNumber =
-        usernametextFieldKey.currentState?.usernameController.text ?? '';
+    String phoneNumber = usernametextFieldKey.currentState?.usernameController.text ?? '';
 
     // Realizar la solicitud de inicio de sesión
     String? userId = await ApiRepository().logInUser(phoneNumber);
@@ -71,6 +70,16 @@ class _LoginPage extends State<LoginApp> {
       print('Fallo en el inicio de sesión');
       setState(() {
         errorSquareKey.currentState!.invalidData = true;
+      });
+    }
+    if (usernametextFieldKey.currentState!.usernameController.text.isEmpty) {
+      setState(() {
+        errorSquareKey.currentState!.invalidData = false;
+        usernametextFieldKey.currentState!.valueEmpty2 = true;
+      });
+    } else {
+      setState(() {
+        usernametextFieldKey.currentState!.valueEmpty2 = false;
       });
     }
   }

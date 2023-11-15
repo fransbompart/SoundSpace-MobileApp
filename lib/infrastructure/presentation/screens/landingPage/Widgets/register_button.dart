@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/loginPage/login_page.dart';
 
 class RegisterButtom extends StatefulWidget {
   const RegisterButtom({super.key});
@@ -12,7 +13,11 @@ class _RegisterButtomState extends State<RegisterButtom> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Handle button press
+        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginApp()),
+                        );
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
