@@ -9,6 +9,7 @@ class ErrorSquare extends StatefulWidget {
 
 class ErrorSquareState extends State<ErrorSquare> {
   bool invalidData = false;
+  String mensaje = '';
 
   @override
   Widget build(BuildContext context) {
@@ -23,33 +24,44 @@ class ErrorSquareState extends State<ErrorSquare> {
             width: MediaQuery.of(context).size.width * 0.95,
             color: Colors.transparent,
             child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.red,
-                      width: 2.0,
-                    ),
-                    color: Colors.white,
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(15.0))),
-                child: const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.error,
-                            color: Colors.red,
-                          ),
-                          Text(
-                            "  Datos inválidos, intenta nuevamente",
-                            style: TextStyle(color: Colors.black, fontSize: 15),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      )),
-                )),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.red,
+                  width: 2.0,
+                ),
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                      Expanded(
+                        child: Wrap(
+                          children: [
+                            Text(
+                              mensaje,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

@@ -50,6 +50,7 @@ class _LoginPage extends State<LoginApp> {
       print('Fallo en el inicio de sesión');
       setState(() {
         errorSquareKey.currentState!.invalidData = true;
+        errorSquareKey.currentState!.mensaje = ' Datos inválidos. Intenta nuevamente';
       });
     }
     if (usernametextFieldKey.currentState!.usernameController.text.isEmpty) {
@@ -87,7 +88,9 @@ class _LoginPage extends State<LoginApp> {
       // Si userId es null, el inicio de sesión falló
       // Mostrar mensaje de error
       print('Fallo en el registro');
+      String errorMessage = await ApiRepository().getError(phoneNumber,operadora);
       setState(() {
+        errorSquareKey.currentState!.mensaje = errorMessage;
         errorSquareKey.currentState!.invalidData = true;
       });
     }
