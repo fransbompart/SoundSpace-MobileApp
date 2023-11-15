@@ -16,35 +16,15 @@ class LoginApp extends StatefulWidget {
 class _LoginPage extends State<LoginApp> {
   //data de prueba
   String user = '12345';
+  String movistar = '0cf45d3b-187e-49c2-b24f-18e6da8245e9';
+  String digitel = 'd850ca20-cd91-4c53-95f4-7091ff46defe';
   //Keys para el acceso a stateful widgets
   GlobalKey<BaseTextFieldState> usernametextFieldKey =
       GlobalKey<BaseTextFieldState>();
   GlobalKey<ErrorSquareState> errorSquareKey = GlobalKey<ErrorSquareState>();
   final ApiRepository repository = ApiRepository();
 
-//método validar datos usuario
-  void signUserIn2() {
-    if (usernametextFieldKey.currentState!.usernameController.text != user) {
-      setState(() {
-        errorSquareKey.currentState!.invalidData = true;
-      });
-    } else {
-      setState(() {
-        errorSquareKey.currentState!.invalidData = false;
-      });
-      Navigator.pushNamed(context, '/homepage');
-    }
-    if (usernametextFieldKey.currentState!.usernameController.text.isEmpty) {
-      setState(() {
-        errorSquareKey.currentState!.invalidData = false;
-        usernametextFieldKey.currentState!.valueEmpty2 = true;
-      });
-    } else {
-      setState(() {
-        usernametextFieldKey.currentState!.valueEmpty2 = false;
-      });
-    }
-  }
+//método iniciar sesion
 
   void signUserIn() async {
     print('Iniciando sesion...');
@@ -68,6 +48,45 @@ class _LoginPage extends State<LoginApp> {
       // Si userId es null, el inicio de sesión falló
       // Mostrar mensaje de error
       print('Fallo en el inicio de sesión');
+      setState(() {
+        errorSquareKey.currentState!.invalidData = true;
+      });
+    }
+    if (usernametextFieldKey.currentState!.usernameController.text.isEmpty) {
+      setState(() {
+        errorSquareKey.currentState!.invalidData = false;
+        usernametextFieldKey.currentState!.valueEmpty2 = true;
+      });
+    } else {
+      setState(() {
+        usernametextFieldKey.currentState!.valueEmpty2 = false;
+      });
+    }
+  }
+  //metodo registrar usuario
+  void signUserUp(String operadora) async {
+    print('Registrando...');
+    // Obtener el número de teléfono desde el TextField
+    String phoneNumber = usernametextFieldKey.currentState?.usernameController.text ?? '';
+    
+
+    // Realizar la solicitud de inicio de sesión
+    String? userId = await ApiRepository().signUpUser(phoneNumber,operadora);
+
+    if (userId != null) {
+      // Inicio de sesión exitoso, realizar la navegación o acciones correspondientes
+      print('Registrado con exito. ID de usuario: $userId');
+
+      // Navigecacion a la HomePage
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(repository: repository)),
+      );
+    } else {
+      // Si userId es null, el inicio de sesión falló
+      // Mostrar mensaje de error
+      print('Fallo en el registro');
       setState(() {
         errorSquareKey.currentState!.invalidData = true;
       });
@@ -177,16 +196,21 @@ class _LoginPage extends State<LoginApp> {
                 ),
                 const SizedBox(height: 30),
                 //Boton movistar
-                const Center(
+                 Center(
                   child: ImageContainer(
                     imagePath: 'images/digitel_blanco.png',
-                  ),
+                    onTap: () {
+                      signUserUp(digitel);
+                    }),
                 ),
                 //Boton digitel
                 const SizedBox(height: 25),
-                const Center(
+                 Center(
                   child: ImageContainer(
                     imagePath: 'images/movistar_blanco.png',
+                    onTap: () {
+                      signUserUp(movistar);
+                      }
                   ),
                 ),
               ],

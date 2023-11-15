@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 class ImageContainer extends StatelessWidget {
   final String imagePath;
+  final Function()? onTap;
 
-  const ImageContainer({
-    Key? key,
-    required this.imagePath,
-  }) : super(key: key);
+  const ImageContainer({super.key, required this.imagePath,required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class ImageContainer extends StatelessWidget {
         ),
       ),
       child: ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: onTap,
           icon: Image.asset(imagePath, width: 240),
           label: const Text(''),
           style: ElevatedButton.styleFrom(

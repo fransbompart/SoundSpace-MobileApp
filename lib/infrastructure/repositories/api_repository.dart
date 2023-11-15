@@ -224,4 +224,26 @@ class ApiRepository {
     }
     return null;
   }
+  Future<String?> signUpUser(String number, String operadora) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'https://soundspace-api-production.up.railway.app/api/auth/validate_operator'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'number': number,
+          "operadoraId": operadora,
+        }),
+      );
+      if (jsonDecode(response.body)['statusCode'] == 200) {
+        // Si el servidor devuelve una respuesta OK, extraemos el código de usuario.
+        return jsonDecode(response.body)['codigo_usuario']; 
+      }
+    } catch (e) {
+      print('$e');
+    }
+    return null;
+  }
 }
