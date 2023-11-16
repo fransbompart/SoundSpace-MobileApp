@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
+
 import '../../domain/album.dart';
 import '../../domain/artist.dart';
 import '../../domain/playlist.dart';
 import '../../domain/song.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ApiRepository {
   final Dio dio = Dio();
@@ -94,6 +96,33 @@ class ApiRepository {
       } else {
         throw Exception('Failed to load playlists');
       }
+    } catch (e) {
+      print("$e");
+    }
+    return null;
+  }
+
+  Future<List<Artist>?> getSearchArtists(String searchTerm) async {
+    try {
+      String ruta = "https://soundspace-api-production.up.railway.app/api/search/$searchTerm?type=artist";
+      final response = await dio.get(ruta);
+
+      if (response.statusCode == 200) {
+        final artistsJson = response.data["data"];
+
+        List<Artist> newArtists = artistsJson
+            .map<Artist>((artist) => Artist(
+                  id: artist['codigo_artista'],
+                  name: artist['nombre_artista'],
+                  imageURL: artist['referencia_imagen'],
+                ))
+            .toList();
+
+        return newArtists;
+      } else {
+        throw Exception('Failed to load artists');
+      }
+
     } catch (e) {
       print("$e");
     }

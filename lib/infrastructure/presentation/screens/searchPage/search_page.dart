@@ -1,67 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:soundspace_mobileapp/infrastructure/presentation/screens/home/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:soundspace_mobileapp/domain/artist.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/commons/widgets/background.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/providers/search_artist_provider.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/artist/artist_page.dart';
 import 'package:soundspace_mobileapp/infrastructure/repositories/api_repository.dart';
 
-import '../classes/artist_theme_model.dart';
+class SearchPage extends StatelessWidget {
+  final ApiRepository repository;
 
-class SearchFrame extends StatefulWidget {
-  const SearchFrame({super.key});
+  const SearchPage({super.key, required this.repository});
 
   @override
-  State<SearchFrame> createState() => _SearchFrameState();
+  Widget build(BuildContext context) {
+    final ApiRepository repository = ApiRepository();
+    return Scaffold(
+        body: MultiProvider(
+            providers: [
+          ChangeNotifierProvider(
+              create: (_) => SearchArtistProvider(repository: repository)),
+        ],
+            child: Search(
+              repository: repository,
+            )
+        )
+    );
+  }
 }
 
-class _SearchFrameState extends State<SearchFrame> {
 
-  TextEditingController _controller = TextEditingController();
+class Search extends StatefulWidget {
+  final ApiRepository repository;
+  const Search({super.key, required this.repository});
 
-  static List<ArtistThemeModel> mainThemeList = [
-    ArtistThemeModel("Aquiles Báez"),
-    ArtistThemeModel("Aquiles Hernández"),
-  ];
 
-  List<ArtistThemeModel> displayList = List.from(mainThemeList);
+  @override
+  State<Search> createState() => _SearchSate();
+}
+
+
+class _SearchSate extends State<Search> {
+
+  final TextEditingController _controller = TextEditingController();
+
+  List<Artist> displayList = [];
 
   String inputValue = '';
-  final ApiRepository repository = ApiRepository();
 
+  void updateList(String value, dynamic search) async {
 
-  void updateList(String value) {
+    if (value.isEmpty){
+      print("si");
+    }
+
+    if (value.isEmpty){
+      displayList = [];
+    }
+    else {
+      await search.loadSearch(value);
+
+      setState(() {
+        displayList = search.searchArtists;
+      });
+    }
+
     setState(() {
       inputValue = value;
-      if (value.isEmpty) {
-        displayList = [];
-      } else {
-        displayList = mainThemeList
-            .where((element) =>
-                element.artistName!.toLowerCase().contains(value.toLowerCase()))
-            .toList();
-      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    final searchArtistProvider = context.watch<SearchArtistProvider>();
+    return
+      Scaffold(
         body: Stack(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: <Color>[
-                    Color(0xFF3C127E),
-                    Color(0xFF3C127E),
-                    Color(0xFF2A154E),
-                    Color(0xFF261740),
-                    Color(0xFF261740),
-                    Color(0xFF2C1553),
-                    Color(0xFF3E1283),
-                    Color(0xFF3E1283),
-                  ],
-                ),
-              ),
+            const GradientBackground(
+              child: SizedBox(
+                height: 0,
+              )
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -73,22 +91,21 @@ class _SearchFrameState extends State<SearchFrame> {
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     leading: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.all(0),
+                      iconSize: 25,
                       onPressed: () {
-                        // Navegar a la página de búsqueda cuando se hace clic en el ícono de búsqueda
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  HomePage(repository: repository)),
-                        );
+                        Navigator.pop(context);
                       },
                     ),
-                    
                     title: const Text(
                       'Buscar artista o tema',
                       style: TextStyle(
-                        fontFamily: 'Visby',
                         fontSize: 22,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 2.0,
                         color: Colors.white
                       ),
@@ -111,13 +128,12 @@ class _SearchFrameState extends State<SearchFrame> {
                     ),
                     child: Center(
                       child: TextField(
-                        onChanged: (value) => updateList(value),
                         style: const TextStyle(
-                            fontFamily: 'Visby',
                             fontSize: 18,
-                            fontWeight: FontWeight.w300,color: Colors.white,
+                            fontWeight: FontWeight.normal,color: Colors.white,
                         ),
                         controller: _controller,
+                        onChanged: (value) => updateList(value, searchArtistProvider),
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.transparent,
@@ -127,9 +143,8 @@ class _SearchFrameState extends State<SearchFrame> {
                           ),
                           hintText: "¿Qué deseas escuchar?",
                           hintStyle: const TextStyle(
-                            fontFamily: 'visbycf-thin',
                             fontSize: 19,
-                            fontWeight: FontWeight.w100,
+                            fontWeight: FontWeight.normal,
                             letterSpacing: 1.5,
                             color: Color(0xFFC2C1C5),
                           ),
@@ -141,7 +156,7 @@ class _SearchFrameState extends State<SearchFrame> {
                             onPressed: () {
                               setState(() {
                                 _controller.clear();
-                                updateList(_controller.text);
+                                updateList(_controller.text, searchArtistProvider);
                                 },
                               );
                             },
@@ -162,30 +177,40 @@ class _SearchFrameState extends State<SearchFrame> {
                             child: const Text(
                               "Lo sentimos, no se encontraron resultados.",
                               style: TextStyle(
-                                fontFamily: 'visbycf-thin',
                                 fontSize: 14,
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.normal,
                                 letterSpacing: 1.5,
                                 color: Color(0xFF0AACBE),
                               ),
                             ),
                           )
-                          : ListView.builder(
-                              itemCount: displayList.length,
-                              itemBuilder: (context, index) => ListTile(
+                        : ListView.builder(
+                            itemCount: displayList.length > 4 ? 4 : displayList.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ArtistPage(
+                                      artist: displayList[index],
+                                    )
+                                  )
+                                );
+                              },
+                              child: ListTile(
                                 contentPadding: const EdgeInsets.only( top: 1.0, bottom: 1.0, left: 25.0),
-                                title: Text(displayList[index].artistName!,
+                                title: Text(displayList[index].name,
                                   style: const TextStyle(
-                                    fontFamily: 'visbycf-thin',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w100,
-                                    letterSpacing: 1.5,
-                                    color: Colors.white,
-                                  ),
-                                )
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      letterSpacing: 1.5,
+                                      color: Colors.white,
+                                    ),
+                                  )
                               ),
-                            ),
-                    ),
+                            )
+                          ),
+                      ),
                 ],
               ),
             ),
