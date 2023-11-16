@@ -69,7 +69,7 @@ class _LoginPage extends State<LoginApp> {
     print('Registrando...');
     // Obtener el número de teléfono desde el TextField
     String phoneNumber = usernametextFieldKey.currentState?.usernameController.text ?? '';
-    if (phoneNumber.length <= 10 || phoneNumber.startsWith('0') ){
+    if (phoneNumber.length <= 9 || phoneNumber.startsWith('0') ){
       setState(() {
       errorSquareKey.currentState!.mensaje = 'Formato inválido. Formato correcto de ejemplo: 584241232323 o 4121232323';
       errorSquareKey.currentState!.invalidData = true;
