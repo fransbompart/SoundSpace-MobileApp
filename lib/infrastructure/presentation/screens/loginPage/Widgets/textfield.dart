@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 class BaseTextField extends StatefulWidget{
   const BaseTextField({super.key});
@@ -21,8 +22,12 @@ class BaseTextFieldState extends State<BaseTextField>{
                   key: formKey,
                   child: TextFormField(
                     controller: usernameController,
-                  obscureText: false,
-                  decoration: InputDecoration(
+                    obscureText: false,
+                    maxLength: 12,
+                    inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
                     enabledBorder: valueEmpty2
                       ? OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16.0),
@@ -46,7 +51,7 @@ class BaseTextFieldState extends State<BaseTextField>{
                   ),
                   cursorColor: Colors.white,
                   style: GoogleFonts.poppins().copyWith(
-          color: Colors.white,
+                  color: Colors.white,
             ),
                           
                   ),

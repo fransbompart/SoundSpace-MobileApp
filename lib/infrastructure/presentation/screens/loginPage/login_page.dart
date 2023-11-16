@@ -69,6 +69,13 @@ class _LoginPage extends State<LoginApp> {
     print('Registrando...');
     // Obtener el número de teléfono desde el TextField
     String phoneNumber = usernametextFieldKey.currentState?.usernameController.text ?? '';
+    if (phoneNumber.length <= 10 || phoneNumber.startsWith('0') ){
+      setState(() {
+      errorSquareKey.currentState!.mensaje = 'Formato inválido. Formato correcto de ejemplo: 584241232323 o 4121232323';
+      errorSquareKey.currentState!.invalidData = true;
+      });
+    } else{
+
     
 
     // Realizar la solicitud de inicio de sesión
@@ -103,6 +110,7 @@ class _LoginPage extends State<LoginApp> {
       setState(() {
         usernametextFieldKey.currentState!.valueEmpty2 = false;
       });
+    }
     }
   }
 
