@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/playlist/playlist_page.dart';
 import '../../../../../domain/playlist.dart';
 
 class PlaylistWrap extends StatelessWidget {
@@ -68,6 +69,14 @@ class _PlaylistCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           )),
+      onTap: () async {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PlaylistPage(
+                      playlist: Playlist(id: id, name: name, iconPath: imgUrl),
+                    )));
+      },
     );
   }
 }

@@ -56,6 +56,13 @@ flutter:
   uses-material-design: true
   
   assets:
+    - images/aqustico2.png
+    - images/digitel_blanco.png
+    - images/digitel.png
+    - images/hojitas.png
+    - images/logo_conectium.png
+    - images/movistar_blanco.png
+    - images/movistar.png
     - images/coming_soon.jpg
     - icons/1xIcon.png
     - icons/15sBack.png

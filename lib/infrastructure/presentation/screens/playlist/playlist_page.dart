@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:provider/provider.dart';
+import 'package:soundspace_mobileapp/domain/playlist.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/commons/widgets/background.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/providers/audio_player_provider.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/providers/playlist_provider.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/playlist/widget/playlist_songs.dart';
 import 'package:soundspace_mobileapp/infrastructure/repositories/api_repository.dart';
 import 'dart:math';
 
 class PlaylistPage extends StatelessWidget {
-  const PlaylistPage({super.key});
+  final Playlist playlist;
+  const PlaylistPage({super.key, required this.playlist});
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +21,28 @@ class PlaylistPage extends StatelessWidget {
             providers: [
           ChangeNotifierProvider(
             create: (_) => AudioPlayerProvider(),
-          )
+          ),
+          ChangeNotifierProvider(
+              create: (_) => PlaylistProvider(repository: repository))
         ],
             child: GradientBackground(
-                child: Playlist(
+                child: IndividualPlaylist(
               repository: repository,
+              playlist: playlist,
             ))));
   }
 }
 
-class Playlist extends StatelessWidget {
+class IndividualPlaylist extends StatelessWidget {
   final ApiRepository repository;
-  const Playlist({super.key, required this.repository});
+  final Playlist playlist;
+  const IndividualPlaylist(
+      {super.key, required this.repository, required this.playlist});
 
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.watch<AudioPlayerProvider>();
+    final playlistProvider = context.watch<PlaylistProvider>();
     final List<double> samples = [];
     for (var i = 0; i < 180; i++) {
       samples.add(Random().nextDouble() * 5);
@@ -75,7 +85,7 @@ class Playlist extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/soundcloud-imagenes.appspot.com/o/Imagenes%2FbillieEilish_HappierThanEver.jpeg?alt=media&token=8d6157ca-1a2c-4887-b597-98babc2cd201',
+                          playlist.iconPath,
                           fit: BoxFit.fill,
                           width: 220,
                         ),
@@ -91,37 +101,118 @@ class Playlist extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Name',
+                          playlist.name,
                           style: const TextStyle(
                               fontSize: 26,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          'Name',
-                          style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        Text('Name',
-                            style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal)),
+                        (playlistProvider.creator == null)
+                            ? FutureBuilder(
+                                future: playlistProvider
+                                    .getPlaylistCreator(playlist.id),
+                                builder: (contex, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child:
+                                            CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
+                                  } else {
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      return Text(
+                                        playlistProvider.creator!,
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.normal),
+                                      );
+                                    }
+                                  }
+                                })
+                            : Text(
+                                playlistProvider.creator!,
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                        (playlistProvider.songs == null)
+                            ? FutureBuilder(
+                                future: playlistProvider
+                                    .getPlaylistSongs(playlist.id),
+                                builder: (contex, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                        child:
+                                            CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
+                                  } else {
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    } else {
+                                      return Text(
+                                        '${playlistProvider.songs} CANCIONES',
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.normal),
+                                      );
+                                    }
+                                  }
+                                })
+                            : Text(
+                                '${playlistProvider.songs} CANCIONES',
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.normal),
+                              ),
                         Container(
                           child: Row(
                             children: [
-                              Icon(
-                                Icons.av_timer_outlined,
-                                color: Colors.white,
-                                size: 15,
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                child: Icon(
+                                  Icons.av_timer_outlined,
+                                  color: Colors.white,
+                                  size: 15,
+                                ),
                               ),
-                              Text('Name',
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal))
+                              (playlistProvider.duration == null)
+                                  ? FutureBuilder(
+                                      future: playlistProvider
+                                          .getPlaylistDuration(playlist.id),
+                                      builder: (contex, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const Center(
+                                              child:
+                                                  CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
+                                        } else {
+                                          if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
+                                          } else {
+                                            return Text(
+                                              '${playlistProvider.duration} MIN',
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.grey,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            );
+                                          }
+                                        }
+                                      })
+                                  : Text(
+                                      '${playlistProvider.duration} MIN',
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.normal),
+                                    ),
                             ],
                           ),
                         )
@@ -225,7 +316,50 @@ class Playlist extends StatelessWidget {
                     ),
                   )
                 ]),
-              )
+              ),
+              (playlistProvider.playlistSongs == null)
+                  ? FutureBuilder(
+                      future: playlistProvider.getSongsByPlaylist(playlist.id),
+                      builder: ((context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child:
+                                  CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
+                        } else {
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return Padding(
+                                padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                child: Container(
+                                    width: double.infinity,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        PlaylistSongs(
+                                            songs:
+                                                playlistProvider.playlistSongs!)
+                                      ],
+                                    )));
+                          }
+                        }
+                      }))
+                  : Padding(
+                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                      child: Container(
+                          width: double.infinity,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              PlaylistSongs(
+                                  songs: playlistProvider.playlistSongs!)
+                            ],
+                          ))),
             ],
           ),
         )

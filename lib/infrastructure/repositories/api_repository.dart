@@ -164,6 +164,78 @@ class ApiRepository {
     return null;
   }
 
+  Future<List<Song>?> getSongsByPlaylist(String id) async {
+    try {
+      final response = await dio.get(
+          "https://soundspace-api-production.up.railway.app/api/playlist/$id");
+
+      if (response.statusCode == 200) {
+        List<Song> newSongs = response.data['data']['canciones']
+            .map<Song>((song) => Song(
+                id: song['codigo_cancion'],
+                name: song['nombre_cancion'],
+                duration: song['duracion'],
+                imageURL: ''))
+            .toList();
+
+        return newSongs;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('$e');
+    }
+    return null;
+  }
+
+  Future<String> getPlaylistCreator(String id) async {
+    try {
+      final response = await dio.get(
+          "https://soundspace-api-production.up.railway.app/api/playlist/$id");
+      if (response.statusCode == 200) {
+        return response.data['data']['creadores'][0];
+      } else {
+        return '';
+      }
+    } catch (e) {}
+
+    return '';
+  }
+
+  Future<String> getPlaylistSongs(String id) async {
+    try {
+      print(id);
+      final response = await dio.get(
+          "https://soundspace-api-production.up.railway.app/api/playlist/$id");
+      if (response.statusCode == 200) {
+        List songs =
+            response.data['data']['canciones'].map((s) => (s)).toList();
+        print(songs);
+        print(id);
+        return songs.length.toString();
+      } else {
+        return '';
+      }
+    } catch (e) {}
+
+    return '';
+  }
+
+  Future<String> getPlaylistDuration(String id) async {
+    try {
+      print(id);
+      final response = await dio.get(
+          "https://soundspace-api-production.up.railway.app/api/playlist/$id");
+      if (response.statusCode == 200) {
+        return response.data['data']['duracion'];
+      } else {
+        return '';
+      }
+    } catch (e) {}
+
+    return '';
+  }
+
   Future<List<Song>?> getTracklist() async {
     try {
       final response = await dio.get(
@@ -224,6 +296,7 @@ class ApiRepository {
     }
     return null;
   }
+
   Future<String?> signUpUser(String number, String operadora) async {
     try {
       final response = await http.post(
@@ -239,8 +312,8 @@ class ApiRepository {
       );
       if (jsonDecode(response.body)['statusCode'] == 200) {
         // Si el servidor devuelve una respuesta OK, extraemos el código de usuario.
-        return jsonDecode(response.body)['codigo_usuario']; 
-      } 
+        return jsonDecode(response.body)['codigo_usuario'];
+      }
     } catch (e) {
       print('$e');
     }
@@ -260,9 +333,8 @@ class ApiRepository {
           "operadoraId": operadora,
         }),
       );
-      
-        return(jsonDecode(response.body)['message']);
-      
+
+      return (jsonDecode(response.body)['message']);
     } catch (e) {
       print('$e');
     }
