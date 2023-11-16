@@ -9,9 +9,7 @@ import 'package:soundspace_mobileapp/infrastructure/presentation/commons/widgets
 import 'package:soundspace_mobileapp/infrastructure/presentation/commons/widgets/tracklist.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/providers/album_provider.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/providers/audio_player_provider.dart';
-import 'package:soundspace_mobileapp/infrastructure/presentation/providers/playlist_provider.dart';
 import 'package:soundspace_mobileapp/infrastructure/presentation/providers/song_provider.dart';
-import 'package:soundspace_mobileapp/infrastructure/presentation/screens/artist/artist_info.dart';
 import 'package:soundspace_mobileapp/infrastructure/repositories/api_repository.dart';
 
 class ArtistPage extends StatelessWidget {
@@ -91,7 +89,7 @@ class IndividualArtist extends StatelessWidget {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
                   child: SizedBox(
                       width: double.infinity,
                       height: 200,

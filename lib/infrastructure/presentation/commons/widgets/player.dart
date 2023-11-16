@@ -3,7 +3,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/audio_player_provider.dart';
-import '../../providers/song_provider.dart';
 import 'player_progress_bar.dart';
 
 class Player extends StatelessWidget {
@@ -69,8 +68,6 @@ class _PlayerButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final playerProvider = context.watch<AudioPlayerProvider>();
-    final songProvider =
-        context.watch<SongProvider>(); //deberia ser read nada mas
     IconData icon;
     Color color;
 
