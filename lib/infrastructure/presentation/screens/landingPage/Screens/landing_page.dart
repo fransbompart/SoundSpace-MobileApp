@@ -23,9 +23,9 @@ class LandingPage extends StatelessWidget {
               ],
             ),
           ),
-          child: SingleChildScrollView(
+          child: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 // Imagen
                 const LandingPromo(promoPath: 'images/aqustico2.png'),
@@ -111,7 +111,7 @@ class LandingPage extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 90),
+                const SizedBox(height: 120),
 
                 //Image
                 Align(

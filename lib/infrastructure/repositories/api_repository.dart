@@ -193,13 +193,45 @@ class ApiRepository {
       final response = await dio.get(
           "https://soundspace-api-production.up.railway.app/api/playlist/$id");
       if (response.statusCode == 200) {
-        return response.data['data']['creadores'][0];
+        List creators = response.data['data']['creadores']
+            .map((c) => (c['nombre_artista']))
+            .toList();
+
+        print(creators[0]);
+        return creators[0];
       } else {
         return '';
       }
     } catch (e) {}
 
     return '';
+  }
+
+  Future<List<Artist>?> getSearchArtists(String searchTerm) async {
+    try {
+      String ruta =
+          "https://soundspace-api-production.up.railway.app/api/search/$searchTerm?type=artist";
+      final response = await dio.get(ruta);
+
+      if (response.statusCode == 200) {
+        final artistsJson = response.data["data"];
+
+        List<Artist> newArtists = artistsJson
+            .map<Artist>((artist) => Artist(
+                  id: artist['codigo_artista'],
+                  name: artist['nombre_artista'],
+                  imageURL: artist['referencia_imagen'],
+                ))
+            .toList();
+
+        return newArtists;
+      } else {
+        throw Exception('Failed to load artists');
+      }
+    } catch (e) {
+      print("$e");
+    }
+    return null;
   }
 
   Future<String> getPlaylistSongs(String id) async {

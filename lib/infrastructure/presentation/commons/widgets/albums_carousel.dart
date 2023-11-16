@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gallery_3d/gallery3d.dart';
+import 'package:soundspace_mobileapp/domain/playlist.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/playlist/playlist_page.dart';
 
 import '../../../../../domain/album.dart';
 
@@ -42,6 +44,17 @@ class _AlbumsCarouselState extends State<AlbumsCarousel> {
                 blurRadius: 20.0)
           ]),
       itemBuilder: (context, index) => albumsCard[index],
+      onClickItem: (value) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PlaylistPage(
+                      playlist: Playlist(
+                          id: albumsCard[value].album.id,
+                          name: albumsCard[value].album.name,
+                          iconPath: albumsCard[value].album.imageURL),
+                    )));
+      },
     );
   }
 }
