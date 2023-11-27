@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soundspace_mobileapp/infrastructure/presentation/screens/landingPage/Screens/landing_page.dart';
+import 'package:soundspace_mobileapp/infrastructure/presentation/screens/landingPage/screens/landing_page.dart';
 
 import 'infrastructure/presentation/commons/config/app_theme.dart';
 
