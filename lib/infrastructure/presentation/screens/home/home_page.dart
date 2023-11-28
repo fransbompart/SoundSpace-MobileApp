@@ -53,171 +53,56 @@ class Home extends StatelessWidget {
     final songsProvider = context.watch<SongProvider>();
     final playerProvider = context.watch<AudioPlayerProvider>();
 
-    return Stack(
-      children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              AppBar(
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.white),
-            onPressed: () {
-              // Navegar a la página de búsqueda cuando se hace clic en el ícono de búsqueda
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SearchFrame()),
-              );
-            },
-          ),
-          const SizedBox(width: 10),
-          const Icon(Icons.more_vert, color: Colors.white),
-          const SizedBox(width: 10),
-        ],
-      ),
-              //
-              (artistsProvider.bannerImgUrl == null)
-                  ? FutureBuilder(
-                      future: playlistProvider.loadInitState(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child:
-                                  CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
-                        } else {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return PromotionalBanner(
-                                imgPath: artistsProvider.bannerImgUrl!);
-                          }
-                        }
-                      })
-                  : PromotionalBanner(imgPath: artistsProvider.bannerImgUrl!),
-
-              //
-              (playlistProvider.playlists == null)
-                  ? FutureBuilder(
-                      future: playlistProvider.loadInitState(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child:
-                                  CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
-                        } else {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return _Collapse(name: 'Playlist', child: [
-                              PlaylistWrap(
-                                  playlists: playlistProvider.playlists!)
-                            ]);
-                          }
-                        }
-                      })
-                  : _Collapse(name: 'Playlist', child: [
-                      PlaylistWrap(playlists: playlistProvider.playlists!)
-                    ]),
-
-              //
-              (albumsProvider.trendingAlbums == null)
-                  ? FutureBuilder(
-                      future: albumsProvider.loadInitState(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child:
-                                  CircularProgressIndicator()); // muestra un indicador de carga mientras se espera
-                        } else {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return _Collapse(
-                                name: 'Aqustico Experience',
-                                child: [
-                                  AlbumsCarousel(
-                                      albums: albumsProvider.trendingAlbums!),
-                                ]);
-                          }
-                        }
-                      })
-                  : _Collapse(name: 'Aqustico Experience', child: [
-                      AlbumsCarousel(albums: albumsProvider.trendingAlbums!),
-                    ]),
-              //
-              (artistsProvider.trendingArtists == null)
-                  ? FutureBuilder(
-                      future: artistsProvider.loadInitState(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return _Collapse(name: 'Artistas Trending', child: [
-                              ArtistsCarousel(
-                                  artists: artistsProvider.trendingArtists!)
-                            ]);
-                          }
-                        }
-                      })
-                  : _Collapse(name: 'Artistas Trending', child: [
-                      ArtistsCarousel(artists: artistsProvider.trendingArtists!)
-                    ]),
-              const Divider(
-                color: Color.fromARGB(18, 142, 139, 139),
-                height: 40,
-                thickness: 2,
-                indent: 20,
-                endIndent: 20,
+    return Stack(children: [
+      SingleChildScrollView(
+        child: Column(children: [
+          AppBar(
+            backgroundColor: Colors.transparent,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search, color: Colors.white),
+                onPressed: () {
+                  // Navegar a la página de búsqueda cuando se hace clic en el ícono de búsqueda
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchFrame()),
+                  );
+                },
               ),
-//
-              (songsProvider.tracklist == null)
-                  ? FutureBuilder(
-                      future: songsProvider.loadInitState(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else {
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            return _Collapse(name: 'Tracklist', child: [
-                              Tracklist(songs: songsProvider.tracklist!)
-                            ]);
-                          }
-                        }
-                      })
-                  : _Collapse(
-                      name: 'Tracklist',
-                      child: [Tracklist(songs: songsProvider.tracklist!)]),
-              const SizedBox(height: 100)
+              const SizedBox(width: 10),
+              const Icon(Icons.more_vert, color: Colors.white),
+              const SizedBox(width: 10),
             ],
           ),
-        ),
-        Visibility(
-          visible: ((playerProvider.player.processingState ==
-                      ProcessingState.idle) ||
-                  (playerProvider.player.processingState ==
-                      ProcessingState.completed))
-              ? false
-              : true,
-          child: const Align(
-            alignment: Alignment.bottomLeft,
-            child: Player(),
+          PromotionalBanner(imgPath: artistsProvider.bannerImgUrl!),
+          //
+          _Collapse(
+              name: 'Playlist',
+              child: [PlaylistWrap(playlists: playlistProvider.playlists!)]),
+          //
+          _Collapse(name: 'Aqustico Experience', child: [
+            AlbumsCarousel(albums: albumsProvider.trendingAlbums!),
+          ]),
+          //
+          _Collapse(name: 'Artistas Trending', child: [
+            ArtistsCarousel(artists: artistsProvider.trendingArtists!)
+          ]),
+          //
+          const Divider(
+            color: Color.fromARGB(18, 142, 139, 139),
+            height: 40,
+            thickness: 2,
+            indent: 20,
+            endIndent: 20,
           ),
-        )
-      ],
-    );
+          _Collapse(
+              name: 'Tracklist',
+              child: [Tracklist(songs: songsProvider.tracklist!)]),
+          const Player(),
+        ]),
+      )
+    ]);
   }
 }
 
